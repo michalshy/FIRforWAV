@@ -1,0 +1,2 @@
+C:\Users\Michin\Desktop\projektJA\JaProj\JaProj\bin\x64\Release\netcoreapp3.1\JaProj.exe
+C:\Users\Michin\Desktop\projektJA\JaProj\JaProj\bin\x64\Release\netcoreapp3.1\JaProj.dll
