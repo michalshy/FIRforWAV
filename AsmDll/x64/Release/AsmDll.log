@@ -1,8 +1,7 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppClean.targets(77,5): warning : Odmowa dostępu do ścieżki „c:\users\michin\desktop\projektja\japroj\x64\release\asmdll.dll”.
-
+﻿
 Podsumowanie wydajności projektu:
-       44 ms  C:\Users\Michin\Desktop\projektJA\JaProj\AsmDll\AsmDll.vcxproj — wywołań:   1
-                 44 ms  Clean                                    — wywołań:   1
+       17 ms  C:\Users\Michin\Desktop\projektJA\gitVer\FIRforWAV\AsmDll\AsmDll.vcxproj — wywołań:   1
+                 17 ms  Clean                                    — wywołań:   1
 
 Podsumowanie wydajności elementu docelowego:
         0 ms  _CheckForInvalidConfigurationAndPlatform — wywołań:   1
@@ -20,18 +19,18 @@ Podsumowanie wydajności elementu docelowego:
         0 ms  BeforeClean                              — wywołań:   1
         0 ms  Clean                                    — wywołań:   1
         1 ms  _GetProjectReferenceTargetFrameworkProperties — wywołań:   1
-        1 ms  _PrepareForClean                         — wywołań:   1
-        3 ms  CoreClean                                — wywołań:   1
-       38 ms  CoreCppClean                             — wywołań:   1
+        2 ms  _PrepareForClean                         — wywołań:   1
+        2 ms  CoreClean                                — wywołań:   1
+       12 ms  CoreCppClean                             — wywołań:   1
 
 Podsumowanie wydajności zadania:
         0 ms  Message                                  — wywołań:   2
         0 ms  FindUnderPath                            — wywołań:   2
         0 ms  RemoveDuplicates                         — wywołań:   1
+        0 ms  MakeDir                                  — wywołań:   2
         0 ms  AssignProjectConfiguration               — wywołań:   1
         0 ms  MSBuild                                  — wywołań:   1
+        1 ms  WriteLinesToFile                         — wywołań:   2
         1 ms  ReadLinesFromFile                        — wywołań:   1
-        1 ms  MakeDir                                  — wywołań:   2
-        2 ms  WriteLinesToFile                         — wywołań:   2
         2 ms  Delete                                   — wywołań:   4
-       23 ms  CppClean                                 — wywołań:   1
+       10 ms  CppClean                                 — wywołań:   1
