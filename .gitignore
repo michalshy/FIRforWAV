@@ -38,3 +38,5 @@
 /JaProj/obj/project.assets.json
 /JaProjCppDll/x64/Release/JaProjCppDll.dll.recipe
 /JaProjCppDll/x64/Release/JaProjCppDll.log
+/JaProj/obj/x64/Release/netcoreapp3.1/JaProj.assets.cache
+/JaProj/obj/x64/Release/netcoreapp3.1/JaProj.csproj.AssemblyReference.cache

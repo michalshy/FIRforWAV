@@ -26,23 +26,20 @@ class WavReader
     private double [] data;
     private int pos;
 
-    public int getPos()
+    public int GetPos()
     {
         return pos;
     }
-    public byte[] getWav()
+    public byte[] GetWav()
     {
         return wav;
     }
 
-    public double[] getData()
+    public double[] GetData()
     {
         return data;
     }
-
-    
-
-    static double bytesToDouble(byte firstByte, byte secondByte)
+    static double BytesToDouble(byte firstByte, byte secondByte)
     {
         // convert two bytes to one short (little endian)
         short s = (short)((secondByte << 8) | firstByte);
@@ -50,14 +47,11 @@ class WavReader
         return s;
     }
 
-
-    // Return data double array.
-    public void read(string filename)
+    public void Read(string filename)
     {
         wav = File.ReadAllBytes(filename);
 
-        // Get past all the other sub chunks to get to the data subchunk:
-        int tPos = 12;   // First Subchunk ID from 12 to 16
+        int tPos = 12;
 
         // Keep iterating until we find the data chunk (i.e. 64 61 74 61 ...... (i.e. 100 97 116 97 in decimal))
         while (!(wav[tPos] == 100 && wav[tPos + 1] == 97 && wav[tPos + 2] == 116 && wav[tPos + 3] == 97))
@@ -72,20 +66,18 @@ class WavReader
         // Pos is now positioned to start of actual sound data.
         int samples = (wav.Length - tPos)/2;     // 2 bytes per sample (16 bit sound mono)
 
-        // Allocate memory (right will be null if only mono sound)
         data = new double[samples];
 
-        // Write to double array/s:
         int i = 0;
         while (tPos < wav.Length)
         {
-            data[i] = bytesToDouble(wav[tPos], wav[tPos + 1]);
+            data[i] = BytesToDouble(wav[tPos], wav[tPos + 1]);
             tPos += 2;
             i++;
         }
     }
 
-    public void doublesToBytes()
+    public void DoublesToBytes()
     {
         int it = 0;
         for (int i = 0; i < data.Length; i++)
@@ -103,18 +95,8 @@ class WavReader
     }
 }
 
-
-
-
-//wczytywanie danych i tworzenie wątków
-
 namespace JaProj
 {
-
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public double[] coeffs = {0.000000000000000000,
@@ -320,7 +302,8 @@ namespace JaProj
 0.000000,
 0.0000000,
 0.000000000000000000};
-        string filename = "300.wav";
+
+        public string filename = " ";
         double[] ogData;
         public int coeffsSize = 203;
         public MainWindow()
@@ -367,7 +350,7 @@ namespace JaProj
             }
         }
 
-        public void fillData(double [] data)
+        public void FillData(double [] data)
         {
             for(int i = data.Length-1; i > data.Length - coeffsSize - 1; i--)
             {
@@ -384,26 +367,26 @@ namespace JaProj
             WavReader reader = new WavReader();
 
      
-            reader.read(filename);
+            reader.Read(filename);
 
            
-            int sizeOfOne = reader.getData().Length / threads;
+            int sizeOfOne = reader.GetData().Length / threads;
 
-            ogData = new double[reader.getData().Length + coeffsSize];
+            ogData = new double[reader.GetData().Length + coeffsSize];
 
-            reader.getData().CopyTo(ogData, 0);
+            reader.GetData().CopyTo(ogData, 0);
 
-            fillData(ogData);
+            FillData(ogData);
             
             
-            if (asmChoose.IsChecked == true)
+            if (asmChoose.IsChecked == true && filename != " ")
             {
                 watch.Start();
                 for (int i = 0; i < threads; i++)
                 {
                     int j = i;
 
-                    threadTab[j] = new Thread(() => ThreadFunc(reader.getData(), sizeOfOne * j,sizeOfOne * (j+1)));
+                    threadTab[j] = new Thread(() => ThreadFunc(reader.GetData(), sizeOfOne * j,sizeOfOne * (j+1)));
 
 
                 }
@@ -425,7 +408,7 @@ namespace JaProj
                 timer.Content = watch.ElapsedMilliseconds;
 
             }
-           else
+           else if(filename != " ")
             {
                 watch.Start();
 
@@ -433,7 +416,7 @@ namespace JaProj
                 {
                     int j = i;
                     
-                    threadTab[j] = new Thread(() => ThreadFuncCpp(reader.getData(), sizeOfOne * j, sizeOfOne * (j + 1)));
+                    threadTab[j] = new Thread(() => ThreadFuncCpp(reader.GetData(), sizeOfOne * j, sizeOfOne * (j + 1)));
 
                 }
 
@@ -456,13 +439,13 @@ namespace JaProj
             }
 
 
-            reader.doublesToBytes();
+            reader.DoublesToBytes();
             reader.Write();
 
 
         }
 
-        private void asm_checked(object sender, RoutedEventArgs e)
+        private void Asm_checked(object sender, RoutedEventArgs e)
         {
             
             if(cppChoose.IsChecked == true)
@@ -471,7 +454,7 @@ namespace JaProj
             }
         }
 
-        private void cpp_checked(object sender, RoutedEventArgs e)
+        private void Cpp_checked(object sender, RoutedEventArgs e)
         {
             if(asmChoose.IsChecked == true)
             {
